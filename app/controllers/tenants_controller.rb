@@ -1,5 +1,6 @@
 class TenantsController < ApplicationController
   before_action :set_tenant, only: %i[ show edit update destroy ]
+  before_action :authorize_member, only: %i[ show edit update destroy ]
 
   # GET /tenants or /tenants.json
   def index
@@ -67,5 +68,9 @@ class TenantsController < ApplicationController
     # Only allow a list of trusted parameters through.
     def tenant_params
       params.require(:tenant).permit(:name)
+    end
+
+    def authorize_member
+      return redirect_to root_path, alert: 'You are not a member' unless @tenant.users.include? current_user
     end
 end
