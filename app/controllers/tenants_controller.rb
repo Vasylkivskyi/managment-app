@@ -3,7 +3,7 @@ class TenantsController < ApplicationController
 
   # GET /tenants or /tenants.json
   def index
-    @tenants = Tenant.all
+    @tenants = current_user.tenants
   end
 
   # GET /tenants/1 or /tenants/1.json
@@ -25,6 +25,7 @@ class TenantsController < ApplicationController
 
     respond_to do |format|
       if @tenant.save
+        @tenant.members.create(user: current_user, roles: JSON.generate({ admin: true }))
         format.html { redirect_to tenant_url(@tenant), notice: "Tenant was successfully created." }
         format.json { render :show, status: :created, location: @tenant }
       else

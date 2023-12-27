@@ -4,5 +4,5 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable, :confirmable,
          :recoverable, :rememberable, :validatable
   has_many :members
-  has_many :tenant, through: :members
+  has_many :tenants, through: :members
 end
