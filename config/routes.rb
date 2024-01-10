@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
-  resources :members
-  resources :tenants
+  resources :tenants do
+    resources :members
+  end
   devise_for :users
   root "pages#home"
   get "dashboard", to: 'pages#dashboard'
