@@ -1,4 +1,9 @@
-<h1>Members list</h1>
+<h1>Invite Members</h1>
+<%= form_with url: invite_tenant_members_path do |f| %>
+  <%= f.text_field :email, placeholder: 'Email' %>
+  <%= f.submit 'Invite' %>
+<% end %>
+<h1>Members List</h1>
 <% @members.each do |member| %>
   <%= member.user.email %>
   <%= member.roles %>
