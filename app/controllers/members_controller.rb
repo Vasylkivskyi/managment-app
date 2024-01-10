@@ -1,6 +1,4 @@
-class MembersController < ApplicationController
-  before_action :set_current_tenant, only: [:index, :invite]
-
+class MembersController < AuthorizedController
   def index
     @members = @current_tenant.members
   end
@@ -14,9 +12,5 @@ class MembersController < ApplicationController
     return redirect_to tenant_members_path(@current_tenant), alert: 'Email is invalid' unless user.valid?
     user.members.find_or_create_by(tenant: @current_tenant, roles: JSON.generate({ admin: false, editor: true }))
     redirect_to tenant_members_path(@current_tenant), notice: "#{email} invited!"
-  end
-
-  def set_current_tenant
-    @current_tenant = Tenant.find(params[:tenant_id])
   end
 end

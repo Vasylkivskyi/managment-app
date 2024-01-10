@@ -51,7 +51,7 @@ class TenantsController < ApplicationController
 
   # DELETE /tenants/1 or /tenants/1.json
   def destroy
-    @tenant.destroy!
+    @tenant.destroy
 
     respond_to do |format|
       format.html { redirect_to tenants_url, notice: "Tenant was successfully destroyed." }
